@@ -1,79 +1,160 @@
-LATEST
+# API Spec
 
-Web Staging
+## Authentication
 
-Pipeline : 
-[BE] Dokumen ketika simpan sebagai draft gak muncul saat get detail
-[BE] CustomerAccountNumber DBS tidak muncul di detail draft proyek jadi tidak bisa buat opportunity
-[BE] mapping button role SE/offering  belum sesuai 
-[BE] Status dari Solman ke Quote RPA belum berubah
-[QA] banyak kesenggol euy :"
+All API must use this authentication
 
-Simplex : 
-[BE] Invalid token ketika get list Quotation dan KFS
+Request :
+- Header :
+    - X-Api-Key : "your secret api key"
 
-Data:
-1. [BE] Analitik Explore kena CORS
-2. [BE] search pada detail lead, agreement, dan order tidak berfungsi
-3. [BE] jumlah nilai quote di pie chart dan di list am berbeda
-4. [BE] Analitik Pengguna masih kosong
+## Create Product
 
-Solman:
-1. [BE] own channel bisa melanjutkan proyek
+Request :
+- Method : POST
+- Endpoint : `/api/products`
+- Header :
+    - Content-Type: application/json
+    - Accept: application/json
+- Body :
 
-RPA:
-- On Check
+```json 
+{
+    "id" : "string, unique",
+    "name" : "string",
+    "price" : "long",
+    "quantity" : "integer"
+}
+```
 
-CATALOG: [BE] list produk kesenggol, produk yg tampil cuma 10 produk
+Response :
 
-FAB 
-- On Check
+```json 
+{
+    "code" : "number",
+    "status" : "string",
+    "data" : {
+         "id" : "string, unique",
+         "name" : "string",
+         "price" : "long",
+         "quantity" : "integer",
+         "createdAt" : "date",
+         "updatedAt" : "date"
+     }
+}
+```
 
-===============================================
-Android Staging
+## Get Product
 
-CATALOG: OK
-ASSURANCE:
-- [Mobile] unhide fitur gamification
-- [BE] negative case integrasi ke tmoney
+Request :
+- Method : GET
+- Endpoint : `/api/products/{id_product}`
+- Header :
+    - Accept: application/json
 
-MAPS: [BE] Invalid token ketika get sement pada fitur tambah pelanggan baru
+Response :
 
-PIPELINE: 
-- [mobile] apk ngeclose ketika search di dropdown tipe dokumen
-- [mobile] setelah ubah proyek, button edit gk auto refresh
+```json 
+{
+    "code" : "number",
+    "status" : "string",
+    "data" : {
+         "id" : "string, unique",
+         "name" : "string",
+         "price" : "long",
+         "quantity" : "integer",
+         "createdAt" : "date",
+         "updatedAt" : "date"
+     }
+}
+```
 
-SIMPLEX: oncheck
+## Update Product
 
-DELIVERY: on check
+Request :
+- Method : PUT
+- Endpoint : `/api/products/{id_product}`
+- Header :
+    - Content-Type: application/json
+    - Accept: application/json
+- Body :
 
-PRIME: [mobile-DBS] ketidak sesuaian list minggu pada pemilihan periode berikutnya (kurva S)
+```json 
+{
+    "name" : "string",
+    "price" : "long",
+    "quantity" : "integer"
+}
+```
 
-PERFORMANCE: 
--[BE-des] Digiplatform&service datanya ada 4 tapi list ccnya tidak muncul
--[BE-des,dgs] api get detail profitability not found
--[BE-dgs] Summary Digital Platform tidak sesuai dengan list cc 
-===============================================
+Response :
 
-IOS
+```json 
+{
+    "code" : "number",
+    "status" : "string",
+    "data" : {
+         "id" : "string, unique",
+         "name" : "string",
+         "price" : "long",
+         "quantity" : "integer",
+         "createdAt" : "date",
+         "updatedAt" : "date"
+     }
+}
+```
 
-CATALOG: OK
-Assurance:
-- [Mobile] modal absensi full layar saat shift absen dipilih
-- [Mobile] unhide fitur gamification
-- [BE] negative case integrasi ke tmoney
+## List Product
 
-MAPS: [BE] Invalid token ketika get sement pada fitur tambah pelanggan baru
+Request :
+- Method : GET
+- Endpoint : `/api/products`
+- Header :
+    - Accept: application/json
+- Query Param :
+    - size : number,
+    - page : number
 
-PIPELINE: [mobile] popup upload dokumen lngsung hilang, jadi belum bisa upload dokumen
+Response :
 
-SIMPLEX: oncheck
+```json 
+{
+    "code" : "number",
+    "status" : "string",
+    "data" : [
+        {
+             "id" : "string, unique",
+             "name" : "string",
+             "price" : "long",
+             "quantity" : "integer",
+             "createdAt" : "date",
+             "updatedAt" : "date"
+        },
+        {
+             "id" : "string, unique",
+             "name" : "string",
+             "price" : "long",
+             "quantity" : "integer",
+             "createdAt" : "date",
+             "updatedAt" : "date"
+         }
+    ]
+}
+```
 
-DELIVERY: on check
+## Delete Product
 
-PRIME: [mobile-DBS] ketidak sesuaian list minggu pada pemilihan periode berikutnya (kurva S)
+Request :
+- Method : DELETE
+- Endpoint : `/api/products/{id_product}`
+- Header :
+    - Accept: application/json
 
-PERFORMANCE: 
--[BE-des] Digiplatform&service datanya ada 4 tapi list ccnya tidak muncul
--[BE-des,dgs] api get detail profitability not found
--[BE-dgs] Summary Digital Platform tidak sesuai dengan list cc
+Response :
+
+```json 
+{
+    "code" : "number",
+    "status" : "string"
+}
+```
